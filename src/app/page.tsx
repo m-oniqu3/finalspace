@@ -16,8 +16,8 @@ export default function Home() {
           className=""
         />
         <Link
-          href="/"
-          className="text-xl opacity-100 z-20 bg-indigo-300 text-indigo-600 rounded-md font-bold py-2 px-4"
+          href="/account"
+          className="text-xl opacity-100 z-20 bg-indigo-300 text-indigo-600 rounded-md font-bold py-2 px-4 hover:bg-indigo-600 hover:text-indigo-300 transition duration-300 ease-in-out animate-bounce"
         >
           Browse
         </Link>
