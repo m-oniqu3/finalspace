@@ -1,10 +1,10 @@
-import StaticNavbar from "@/components/navbar/StaticNavbar";
+import Navbar from "@/components/navbar/Navbar";
 import { Fragment, ReactNode } from "react";
 
 function StaticLayout({ children }: { children: ReactNode }) {
   return (
     <main>
-      <StaticNavbar />
+      <Navbar showSearchbar={true} />
       <Fragment>{children}</Fragment>
     </main>
   );

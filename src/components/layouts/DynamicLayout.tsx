@@ -1,10 +1,10 @@
-import DynamicNavbar from "@/components/navbar/DynamicNavbar";
+import Navbar from "@/components/navbar/Navbar";
 import { Fragment, ReactNode } from "react";
 
 const DynamicLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
-      <DynamicNavbar />
+      <Navbar showSearchbar={false} />
       <Fragment>{children}</Fragment>
     </div>
   );
