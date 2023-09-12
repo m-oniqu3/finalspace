@@ -5,3 +5,15 @@
 * {
     font-weight: 300;
 }
+
+@layer utilities {
+    .shape {
+        /* clip-path: polygon(82% 0, 100% 0, 100% 60%, 100% 100%, 0 100%, 0 21%, 65% 21%); */
+        /* clip-path: polygon(61% 0, 100% 0, 100% 60%, 100% 100%, 0 100%, 0 21%, 45% 21%); */
+        clip-path: polygon(64% 0, 100% 0, 100% 60%, 100% 100%, 0 100%, 0 21%, 48% 21%);
+    }
+
+    .pos {
+        object-position: 50% -5%;
+    }
+}

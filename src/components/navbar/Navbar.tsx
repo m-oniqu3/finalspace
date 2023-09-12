@@ -22,7 +22,7 @@ const Navbar = (props: Props) => {
           alt="logo"
           width={50}
           height={50}
-          className="md:grid md:col-start-1 md:col-span-1"
+          className="md:grid md:col-start-1 md:col-span-1 sm:w-[80px]"
         />
         <ul
           className={`gap-10 hidden w-fit md:place-items-center text-slate-400 font-light md:grid md:col-start-3 md:grid-cols-5 md:col-span-6 lg:col-start-5 lg:col-span-5 xl:col-start-5 xl:col-span-4

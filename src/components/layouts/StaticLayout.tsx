@@ -1,11 +1,13 @@
+import Container from "@/components/Container";
 import Navbar from "@/components/navbar/Navbar";
-import { Fragment, ReactNode } from "react";
+
+import { ReactNode } from "react";
 
 function StaticLayout({ children }: { children: ReactNode }) {
   return (
-    <main>
+    <main className="bg-indigo-100 min-h-screen">
       <Navbar showSearchbar={true} />
-      <Fragment>{children}</Fragment>
+      <Container className="py-16">{children}</Container>
     </main>
   );
 }
