@@ -21,7 +21,7 @@ const Card = (props: Props) => {
       className=" bg-indigo-200 min-h-[300px] w-[280px] p-6  rounded-xl text-indigo-900  border-indigo-300 relative"
     >
       <p
-        className={`${russo.className} absolute top-5 text-lg font-bold italic opacity-50 tracking-[.4rem]`}
+        className={`${russo.className} absolute top-5 text-lg font-bold italic opacity-70 tracking-[.4rem]`}
       >
         {id}
       </p>

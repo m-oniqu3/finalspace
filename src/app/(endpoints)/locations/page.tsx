@@ -1,7 +1,31 @@
+import Card from "@/components/Card";
+import Grid from "@/components/Grid";
 import StaticLayout from "@/components/layouts/StaticLayout";
+import { Location } from "@/types";
+import { fetchData } from "@/utils/fetchData";
 
-const Loactions = () => {
-  return <StaticLayout>Loactions</StaticLayout>;
+const Locations = async () => {
+  const data = await fetchData<Location>("location");
+
+  const renderLocations = data.map((location) => {
+    return (
+      <Card
+        id={`L #${location.id.toString().padStart(3, "0")}`}
+        link={`/locations/${location.id}`}
+        url={location.img_url}
+        title={location.name}
+        subtitle={location.type}
+        text={`Inhabitants: ${location.inhabitants.length}`}
+        key={location.id}
+      />
+    );
+  });
+
+  return (
+    <StaticLayout>
+      <Grid>{renderLocations}</Grid>
+    </StaticLayout>
+  );
 };
 
-export default Loactions;
+export default Locations;
