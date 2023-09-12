@@ -37,12 +37,12 @@ const Card = (props: Props) => {
         className="pos shape rounded-lg mb-4 h-40 w-30 w-full object-cover"
       />
       <h2
-        className={`${russo.className} tracking-wider font-medium text-lg truncate`}
+        className={`${russo.className} tracking-widest font-medium text-lg truncate`}
       >
         {title}
       </h2>
-      <p className="font-normal truncate">{subtitle}</p>
-      {text && <p className="font-light">{text}</p>}
+      <p className="font-normal truncate opacity-70">{subtitle}</p>
+      {text && <p className="font-light opacity-70">{text}</p>}
     </Link>
   );
 };

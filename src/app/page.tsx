@@ -1,6 +1,9 @@
 import Container from "@/components/Container";
+import { Russo_One } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+
+const russo = Russo_One({ weight: "400", subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -17,7 +20,7 @@ export default function Home() {
         />
         <Link
           href="/account"
-          className="text-xl opacity-100 z-20 bg-indigo-300 text-indigo-600 rounded-md font-bold py-2 px-4 hover:bg-indigo-600 hover:text-indigo-300 transition duration-300 ease-in-out animate-bounce"
+          className={`${russo.className} tracking-widest text-xl opacity-100 z-20 bg-indigo-300 text-indigo-600 rounded-md font-bold py-2 px-4 hover:bg-indigo-600 hover:text-indigo-300 transition duration-300 ease-in-out animate-bounce`}
         >
           Browse
         </Link>
