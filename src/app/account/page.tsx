@@ -1,6 +1,6 @@
 "use client";
 
-import Container from "@/components/Container";
+import Container from "@/components/ui/Container";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

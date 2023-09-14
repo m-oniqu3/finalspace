@@ -1,5 +1,5 @@
-import Container from "@/components/Container";
 import Search from "@/components/Search";
+import Container from "@/components/ui/Container";
 import {
   Bars4Icon,
   HeartIcon,
@@ -17,13 +17,15 @@ const Navbar = (props: Props) => {
   return (
     <nav className="h-[10vh] grid place-items-center border-b-[1px] border-slate-300">
       <Container className="grid gap-6 place-items-center grid-cols-[auto_1fr_auto] md:grid-cols-12">
-        <Image
-          src="/logo.png"
-          alt="logo"
-          width={50}
-          height={50}
-          className="md:grid md:col-start-1 md:col-span-1 sm:w-[80px]"
-        />
+        <Link href="/">
+          <Image
+            src="/logo.png"
+            alt="logo"
+            width={50}
+            height={50}
+            className="md:grid md:col-start-1 md:col-span-1 sm:w-[80px]"
+          />
+        </Link>
         <ul
           className={`gap-10 hidden w-fit md:place-items-center text-slate-400 font-light md:grid md:col-start-3 md:grid-cols-5 md:col-span-6 lg:col-start-5 lg:col-span-5 xl:col-start-5 xl:col-span-4
         `}

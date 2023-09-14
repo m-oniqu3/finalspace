@@ -1,5 +1,5 @@
-import Container from "@/components/Container";
 import Navbar from "@/components/navbar/Navbar";
+import Container from "@/components/ui/Container";
 
 import { ReactNode } from "react";
 

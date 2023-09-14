@@ -1,4 +1,4 @@
-import Container from "@/components/Container";
+import Container from "@/components/ui/Container";
 import { Russo_One } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";

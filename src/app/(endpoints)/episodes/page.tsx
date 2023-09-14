@@ -1,6 +1,6 @@
-import Card from "@/components/Card";
-import Grid from "@/components/Grid";
 import StaticLayout from "@/components/layouts/StaticLayout";
+import Card from "@/components/ui/Card";
+import Grid from "@/components/ui/Grid";
 import { Episode } from "@/types";
 import { fetchData } from "@/utils/fetchData";
 
