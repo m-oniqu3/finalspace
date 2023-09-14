@@ -18,6 +18,7 @@ const page = async (props: Props) => {
   const aliases = character.alias.map((alias, index) => {
     const bracket = alias.indexOf("(");
     alias = bracket !== -1 ? alias.slice(0, bracket) : alias;
+
     return <Pill text={alias} key={index} />;
   });
 

@@ -1,3 +1,4 @@
+import NavLinks from "@/components/NavLinks";
 import Search from "@/components/Search";
 import Container from "@/components/ui/Container";
 import {
@@ -14,9 +15,10 @@ interface Props {
 
 const Navbar = (props: Props) => {
   const { showSearchbar } = props;
+
   return (
     <nav className="h-[10vh] grid place-items-center border-b-[1px] border-slate-300">
-      <Container className="grid gap-6 place-items-center grid-cols-[auto_1fr_auto] md:grid-cols-12">
+      <Container className="grid gap-4 place-items-center grid-cols-[auto_1fr_auto] md:grid-cols-12 ">
         <Link href="/">
           <Image
             src="/logo.png"
@@ -27,45 +29,14 @@ const Navbar = (props: Props) => {
           />
         </Link>
         <ul
-          className={`gap-10 hidden w-fit md:place-items-center text-slate-400 font-light md:grid md:col-start-3 md:grid-cols-5 md:col-span-6 lg:col-start-5 lg:col-span-5 xl:col-start-5 xl:col-span-4
+          className={`gap-10 hidden w-fit md:place-items-center text-slate-400 font-light md:grid md:col-start-3 md:grid-cols-5 md:col-span-6 lg:col-start-4 lg:col-span-5 xl:col-start-5 xl:col-span-4
         `}
         >
-          <li>
-            <Link
-              href="/characters"
-              className="hover:underline hover:text-slate-700 "
-            >
-              Characters
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/episodes"
-              className="hover:underline hover:text-slate-700 "
-            >
-              Episodes
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/locations"
-              className="hover:underline hover:text-slate-700 "
-            >
-              Locations
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/quotes"
-              className="hover:underline hover:text-slate-700 "
-            >
-              Quotes
-            </Link>
-          </li>
+          <NavLinks />
         </ul>
 
         {showSearchbar && (
-          <div className="md:grid md:col-start-9 md:col-span-3 lg:col-start-10 lg:col-span-2 ">
+          <div className="md:grid md:col-start-9 md:col-span-3 lg:col-start-10 lg:col-span-2 lg:w-full">
             <Search />
           </div>
         )}
