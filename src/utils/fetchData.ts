@@ -12,3 +12,15 @@ export async function fetchData<T extends EndpointType>(
   const data = await res.json();
   return data;
 }
+
+export async function fetchDataById<T extends EndpointType>(
+  endpointName: EndpointName,
+  id: number
+): Promise<T> {
+  const response = await fetch(
+    `https://finalspaceapi.com/api/v0/${endpointName}/${id}`
+  );
+
+  const characters = await response.json();
+  return characters;
+}

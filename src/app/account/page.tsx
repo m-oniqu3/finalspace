@@ -43,11 +43,11 @@ const Account = () => {
       <Container className="flex h-[90vh] justify-center items-center">
         <form className="w-[90%] flex flex-col gap-4 max-w-xs">
           <article className="py-4">
-            <h1 className="font-bold text-3xl text-indigo-800 mb-2">
+            <h1 className="font-bold text-3xl text-indigo-900 mb-2">
               {heading}
             </h1>
 
-            <p className=" text-indigo-800">
+            <p className=" text-indigo-900">
               {text} &nbsp;
               <span
                 className="hover:underline cursor-pointer font-normal"
@@ -61,18 +61,18 @@ const Account = () => {
           <input
             type="text"
             placeholder="Username"
-            className="bg-transparent border border-indigo-400 rounded-md py-[.4rem] px-[1.2rem] placeholder:text-indigo-400 text-indigo-500"
+            className="bg-transparent border border-indigo-900 rounded-md py-[.4rem] px-[1.2rem] placeholder:text-indigo-900 text-indigo-500"
           ></input>
 
           <input
             type="password"
             placeholder="Password"
-            className=" bg-transparent border border-indigo-400 rounded-md py-[.4rem] px-[1.2rem] placeholder:text-indigo-400 text-indigo-500"
+            className=" bg-transparent border border-indigo-900 rounded-md py-[.4rem] px-[1.2rem] placeholder:text-indigo-900 text-indigo-500"
           ></input>
 
           <button
             onClick={handleAccount}
-            className="rounded-md font-medium border border-indigo-400 bg-indigo-500 text-indigo-100 py-[.4rem] px-[1.2rem]
+            className="rounded-md font-medium border border-indigo-400 bg-indigo-900 text-indigo-100 py-[.4rem] px-[1.2rem]
             hover:bg-indigo-800 transition duration-300 ease-in-out
           "
           >
