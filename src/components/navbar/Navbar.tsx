@@ -17,8 +17,13 @@ const Navbar = (props: Props) => {
   const { showSearchbar } = props;
 
   return (
-    <nav className="h-[10vh] grid place-items-center border-b-[1px] border-slate-300">
-      <Container className="grid gap-4 place-items-center grid-cols-[auto_1fr_auto] md:grid-cols-12 ">
+    <nav className="h-[10vh] grid place-items-center border-b-[1px] border-slate-300 bg-indigo-100 fixed top-0 w-full z-10">
+      <Container
+        className={`grid gap-4 place-items-center 
+      ${showSearchbar ? "grid-cols-[auto_1fr_auto]" : "grid-cols-[100px_1fr] "}
+     
+      md:grid-cols-12 `}
+      >
         <Link href="/">
           <Image
             src="/logo.png"
@@ -41,7 +46,7 @@ const Navbar = (props: Props) => {
           </div>
         )}
 
-        <Bars4Icon className="h-6 w-6 text-gray-500 md:hidden" />
+        <Bars4Icon className="h-6 w-6 text-gray-500 ml-auto md:hidden" />
 
         <div className="hidden md:grid md:gap-4 md:col-start-12 md:grid-cols-2 md:col-span-1">
           <HeartIcon className="h-7 w-7 text-slate-400 " />

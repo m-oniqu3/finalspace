@@ -4,6 +4,11 @@
 
 * {
     font-weight: 300;
+
+}
+
+body {
+    background-color: rgb(224 231 255);
 }
 
 @layer utilities {

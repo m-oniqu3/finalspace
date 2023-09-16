@@ -7,7 +7,7 @@ const DynamicLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="bg-indigo-100 min-h-screen">
       <Navbar showSearchbar={false} />
-      <Container className="py-16">{children}</Container>
+      <Container className="py-16 relative top-16">{children}</Container>
     </div>
   );
 };
