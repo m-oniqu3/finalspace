@@ -3,11 +3,27 @@ import Card from "@/components/ui/Card";
 import Grid from "@/components/ui/Grid";
 import { Character } from "@/types";
 import { fetchData } from "@/utils/fetchData";
+import { filterCharacters } from "@/utils/filters";
 
-const page = async () => {
+interface Props {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+const page = async (props: Props) => {
   const data = await fetchData<Character>("character");
+  const { search } = props.searchParams;
 
-  const renderCharacters = data.map((character) => {
+  function filterData() {
+    if (!search) return data;
+
+    return data.filter((character) => {
+      return filterCharacters(character, search as string);
+    });
+  }
+
+  const filteredCharacters = filterData();
+
+  const renderCharacters = filteredCharacters.map((character) => {
     return (
       <Card
         id={`C #${character.id.toString().padStart(3, "0")}`}
@@ -21,11 +37,13 @@ const page = async () => {
     );
   });
 
-  return (
-    <StaticLayout>
-      <Grid>{renderCharacters}</Grid>
-    </StaticLayout>
+  let content = filteredCharacters.length ? (
+    <Grid>{renderCharacters}</Grid>
+  ) : (
+    <p>No results</p>
   );
+
+  return <StaticLayout>{content}</StaticLayout>;
 };
 
 export default page;

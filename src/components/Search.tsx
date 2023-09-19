@@ -12,11 +12,19 @@ const Search = () => {
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
+    if (!e.target.value) {
+      router.push(`/${pathname}`);
+      return;
+    }
     router.push(`/${pathname}?search=${e.target.value}`);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <form className="relative w-full">
+    <form className="relative w-full" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder={`Search ${pathname}`}
