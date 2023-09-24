@@ -1,5 +1,8 @@
+"use client";
+
 import NavLinks from "@/components/NavLinks";
 import Search from "@/components/Search";
+import MobileMenu from "@/components/navbar/MobileMenu";
 import Container from "@/components/ui/Container";
 import {
   Bars4Icon,
@@ -8,6 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment, useState } from "react";
 
 interface Props {
   showSearchbar: boolean;
@@ -15,45 +19,56 @@ interface Props {
 
 const Navbar = (props: Props) => {
   const { showSearchbar } = props;
+  const [showMenu, setShowMenu] = useState(false);
+
+  const handleMenu = () => setShowMenu((state) => !state);
+  const closeMenu = () => setShowMenu(false);
 
   return (
-    <nav className="h-[10vh] grid place-items-center border-b-[1px] border-slate-300 bg-indigo-100 fixed top-0 w-full z-10">
-      <Container
-        className={`grid gap-4 place-items-center 
+    <Fragment>
+      <nav className="h-[10vh] grid place-items-center border-b-[1px] border-slate-300 bg-indigo-100 fixed top-0 w-full z-10">
+        <Container
+          className={`grid gap-4 place-items-center 
       ${showSearchbar ? "grid-cols-[auto_1fr_auto]" : "grid-cols-[100px_1fr] "}
      
       md:grid-cols-12 `}
-      >
-        <Link href="/">
-          <Image
-            src="/logo.png"
-            alt="logo"
-            width={50}
-            height={50}
-            className="md:grid md:col-start-1 md:col-span-1 sm:w-[80px]"
-          />
-        </Link>
-        <ul
-          className={`gap-10 hidden w-fit md:place-items-center text-slate-400 font-light md:grid md:col-start-3 md:grid-cols-5 md:col-span-6 lg:col-start-4 lg:col-span-5 xl:col-start-5 xl:col-span-4
-        `}
         >
-          <NavLinks />
-        </ul>
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="logo"
+              width={50}
+              height={50}
+              className="md:grid md:col-start-1 md:col-span-1 sm:w-[80px]"
+            />
+          </Link>
+          <ul
+            className={`gap-10 hidden w-fit md:place-items-center text-slate-400 font-light md:grid md:col-start-3 md:grid-cols-5 md:col-span-6 lg:col-start-4 lg:col-span-5 xl:col-start-5 xl:col-span-4
+        `}
+          >
+            <NavLinks />
+          </ul>
 
-        {showSearchbar && (
-          <div className="md:grid md:col-start-9 md:col-span-3 lg:col-start-10 lg:col-span-2 lg:w-full">
-            <Search />
+          {showSearchbar && (
+            <div className="md:grid md:col-start-9 md:col-span-3 lg:col-start-10 lg:col-span-2 lg:w-full">
+              <Search />
+            </div>
+          )}
+
+          <Bars4Icon
+            className="h-6 w-6 text-gray-500 cursor-pointer ml-auto md:hidden"
+            onClick={handleMenu}
+          />
+
+          <div className="hidden md:grid md:gap-4 md:col-start-12 md:grid-cols-2 md:col-span-1">
+            <HeartIcon className="h-7 w-7 text-slate-400 cursor-pointer " />
+            <UserCircleIcon className="h-7 w-7 text-slate-400 cursor-pointer" />
           </div>
-        )}
+        </Container>
+      </nav>
 
-        <Bars4Icon className="h-6 w-6 text-gray-500 ml-auto md:hidden" />
-
-        <div className="hidden md:grid md:gap-4 md:col-start-12 md:grid-cols-2 md:col-span-1">
-          <HeartIcon className="h-7 w-7 text-slate-400 " />
-          <UserCircleIcon className="h-7 w-7 text-slate-400 " />
-        </div>
-      </Container>
-    </nav>
+      {showMenu && <MobileMenu closeMenu={closeMenu} />}
+    </Fragment>
   );
 };
 

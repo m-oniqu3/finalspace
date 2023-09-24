@@ -1,3 +1,4 @@
+import Empty from "@/components/Empty";
 import StaticLayout from "@/components/layouts/StaticLayout";
 import Card from "@/components/ui/Card";
 import Grid from "@/components/ui/Grid";
@@ -46,7 +47,7 @@ const Episodes = async (props: Props) => {
   let content = filteredEpisodes.length ? (
     <Grid>{renderEpisodes}</Grid>
   ) : (
-    <p>No results</p>
+    <Empty />
   );
 
   return <StaticLayout>{content}</StaticLayout>;

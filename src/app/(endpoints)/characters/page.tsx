@@ -1,3 +1,4 @@
+import Empty from "@/components/Empty";
 import StaticLayout from "@/components/layouts/StaticLayout";
 import Card from "@/components/ui/Card";
 import Grid from "@/components/ui/Grid";
@@ -40,7 +41,7 @@ const page = async (props: Props) => {
   let content = filteredCharacters.length ? (
     <Grid>{renderCharacters}</Grid>
   ) : (
-    <p>No results</p>
+    <Empty />
   );
 
   return <StaticLayout>{content}</StaticLayout>;
