@@ -4,6 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import FormError from "@/app/account/FormError";
 import { validateEmail, validatePassword } from "@/app/account/validateForm";
 import Container from "@/components/ui/Container";
+import { notify } from "@/utils/notify";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
@@ -61,25 +62,40 @@ const Account = () => {
   const handleAccount = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (!showLoginForm) {
-      await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: `${location.origin}/auth/callback`,
-        },
-      });
-      router.refresh();
-    } else {
-      await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      router.refresh();
-      router.push("/characters");
-    }
+    try {
+      if (!showLoginForm) {
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { emailRedirectTo: `${location.origin}/auth/callback` },
+        });
 
-    // router.push("/characters");
+        if (error) throw error;
+
+        if (data) {
+          router.refresh();
+          await notify.verify();
+        }
+      }
+
+      if (showLoginForm) {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) throw error;
+
+        if (data) {
+          router.refresh();
+          router.push("/characters");
+          await notify.welcome();
+        }
+      }
+    } catch (error: any) {
+      console.log(error);
+      notify.error(error);
+    }
   };
 
   const handleChangeForm = () => setShowLoginForm((state) => !state);
