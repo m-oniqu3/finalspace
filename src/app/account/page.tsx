@@ -1,11 +1,11 @@
 "use client";
 
+import FormError from "@/app/account/FormError";
 import { validateEmail, validatePassword } from "@/app/account/validateForm";
 import Container from "@/components/ui/Container";
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 const Account = () => {
   const router = useRouter();
@@ -16,6 +16,8 @@ const Account = () => {
     email: { error: "", valid: false },
     password: { error: "", valid: false },
   });
+
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const formState = {
     heading: showLoginForm ? "Sign In" : "Create Account",
@@ -42,6 +44,18 @@ const Account = () => {
     setFormErrors((state) => ({ ...state, password: results }));
   };
 
+  useEffect(() => {
+    const { email, password } = formErrors;
+    const { valid: emailValid } = email;
+    const { valid: passwordValid } = password;
+
+    if (emailValid && passwordValid) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [formErrors]);
+
   const handleAccount = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -64,8 +78,8 @@ const Account = () => {
         </Container>
       </nav>
 
-      <Container className="flex h-[90vh] justify-center items-center">
-        <form className="w-[90%] flex flex-col gap-4 max-w-xs">
+      <Container className="flex h-[80vh] justify-center items-center">
+        <form className="w-[90%] flex flex-col gap-2 max-w-xs">
           <article className="py-4">
             <h1 className="font-bold text-3xl text-indigo-900 mb-2">
               {heading}
@@ -82,43 +96,33 @@ const Account = () => {
             </p>
           </article>
 
-          <div>
+          <Fragment>
             <input
               type="email"
               placeholder="Email"
-              className="input placeholder:text-indigo-900 text-indigo-500 w-full"
+              className="input placeholder:text-indigo-900 text-indigo-900 w-full"
               value={email}
               onChange={handleEmail}
             />
-            {
-              <p className="mt-1 h-5">
-                {formErrors.email.error}{" "}
-                {formErrors.email.valid && (
-                  <CheckCircleIcon className="h-5 w-5 text-indigo-900" />
-                )}{" "}
-              </p>
-            }
-          </div>
+            <FormError error={formErrors.email} />
+          </Fragment>
 
-          <div>
+          <Fragment>
             <input
               type="password"
               placeholder="Password"
-              className=" input placeholder:text-indigo-900 text-indigo-500 w-full"
+              className="input placeholder:text-indigo-900 text-indigo-900 w-full"
               value={password}
               onChange={handlePassword}
             />
-            {
-              <p className="mt-1 h-5">
-                {formErrors.password.error}
-                {formErrors.password.valid && (
-                  <CheckCircleIcon className="h-5 w-5 text-indigo-900" />
-                )}
-              </p>
-            }
-          </div>
+            <FormError error={formErrors.password} />
+          </Fragment>
 
-          <button onClick={handleAccount} className="submit">
+          <button
+            onClick={handleAccount}
+            className="submit disabled:opacity-30 disabled:cursor-not-allowed"
+            disabled={!isFormValid}
+          >
             {button}
           </button>
         </form>
