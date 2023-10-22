@@ -1,4 +1,5 @@
 "use client";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import FormError from "@/app/account/FormError";
 import { validateEmail, validatePassword } from "@/app/account/validateForm";
@@ -18,6 +19,7 @@ const Account = () => {
   });
 
   const [isFormValid, setIsFormValid] = useState(false);
+  const supabase = createClientComponentClient();
 
   const formState = {
     heading: showLoginForm ? "Sign In" : "Create Account",
@@ -56,8 +58,26 @@ const Account = () => {
     }
   }, [formErrors]);
 
-  const handleAccount = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAccount = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (!showLoginForm) {
+      await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${location.origin}/auth/callback`,
+        },
+      });
+      router.refresh();
+    } else {
+      await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      router.refresh();
+      router.push("/characters");
+    }
 
     // router.push("/characters");
   };
