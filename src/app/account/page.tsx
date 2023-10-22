@@ -1,9 +1,9 @@
 "use client";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import FormError from "@/app/account/FormError";
 import { validateEmail, validatePassword } from "@/app/account/validateForm";
 import Container from "@/components/ui/Container";
+import { createUser, signInUser } from "@/utils/auth";
 import { notify } from "@/utils/notify";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import { Fragment, useEffect, useState } from "react";
 
 const Account = () => {
   const router = useRouter();
-  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState({
@@ -20,7 +20,6 @@ const Account = () => {
   });
 
   const [isFormValid, setIsFormValid] = useState(false);
-  const supabase = createClientComponentClient();
 
   const formState = {
     heading: showLoginForm ? "Sign In" : "Create Account",
@@ -63,34 +62,10 @@ const Account = () => {
     e.preventDefault();
 
     try {
-      if (!showLoginForm) {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${location.origin}/auth/callback` },
-        });
-
-        if (error) throw error;
-
-        if (data) {
-          router.refresh();
-          await notify.verify();
-        }
-      }
-
       if (showLoginForm) {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-        if (error) throw error;
-
-        if (data) {
-          router.refresh();
-          router.push("/characters");
-          await notify.welcome();
-        }
+        signInUser(email, password, router);
+      } else {
+        createUser(email, password, router);
       }
     } catch (error: any) {
       console.log(error);
