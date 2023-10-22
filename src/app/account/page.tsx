@@ -1,30 +1,54 @@
 "use client";
 
+import { validateEmail, validatePassword } from "@/app/account/validateForm";
 import Container from "@/components/ui/Container";
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Account = () => {
   const router = useRouter();
-  const [isLogged, setIsLogged] = useState(true);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [formErrors, setFormErrors] = useState({
+    email: { error: "", valid: false },
+    password: { error: "", valid: false },
+  });
 
   const formState = {
-    heading: isLogged ? "Sign In" : "Create Account",
-    text: isLogged
+    heading: showLoginForm ? "Sign In" : "Create Account",
+    text: showLoginForm
       ? "New to Final Space? Get started by creating an account."
       : "Welcome to Final Space. Already have an account? ",
-    link: isLogged ? "Create Account" : "Sign in",
-    button: isLogged ? "Sign In" : "Create Account",
+    link: showLoginForm ? "Create Account" : "Sign in",
+    button: showLoginForm ? "Sign In" : "Create Account",
   };
 
   const { heading, text, link, button } = formState;
 
-  const handleAccount = () => {
-    router.push("/characters");
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+
+    const results = validateEmail(e.target.value);
+    setFormErrors((state) => ({ ...state, email: results }));
   };
 
-  const handleChangeForm = () => setIsLogged((state) => !state);
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+
+    const results = validatePassword(e.target.value);
+    setFormErrors((state) => ({ ...state, password: results }));
+  };
+
+  const handleAccount = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    // router.push("/characters");
+  };
+
+  const handleChangeForm = () => setShowLoginForm((state) => !state);
 
   return (
     <div className="bg-indigo-100 h-screen">
@@ -58,24 +82,43 @@ const Account = () => {
             </p>
           </article>
 
-          <input
-            type="text"
-            placeholder="Username"
-            className="bg-transparent border border-indigo-900 rounded-md py-[.4rem] px-[1.2rem] placeholder:text-indigo-900 text-indigo-500"
-          ></input>
+          <div>
+            <input
+              type="email"
+              placeholder="Email"
+              className="input placeholder:text-indigo-900 text-indigo-500 w-full"
+              value={email}
+              onChange={handleEmail}
+            />
+            {
+              <p className="mt-1 h-5">
+                {formErrors.email.error}{" "}
+                {formErrors.email.valid && (
+                  <CheckCircleIcon className="h-5 w-5 text-indigo-900" />
+                )}{" "}
+              </p>
+            }
+          </div>
 
-          <input
-            type="password"
-            placeholder="Password"
-            className=" bg-transparent border border-indigo-900 rounded-md py-[.4rem] px-[1.2rem] placeholder:text-indigo-900 text-indigo-500"
-          ></input>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              className=" input placeholder:text-indigo-900 text-indigo-500 w-full"
+              value={password}
+              onChange={handlePassword}
+            />
+            {
+              <p className="mt-1 h-5">
+                {formErrors.password.error}
+                {formErrors.password.valid && (
+                  <CheckCircleIcon className="h-5 w-5 text-indigo-900" />
+                )}
+              </p>
+            }
+          </div>
 
-          <button
-            onClick={handleAccount}
-            className="rounded-md font-medium border border-indigo-400 bg-indigo-900 text-indigo-100 py-[.4rem] px-[1.2rem]
-            hover:bg-indigo-800 transition duration-300 ease-in-out
-          "
-          >
+          <button onClick={handleAccount} className="submit">
             {button}
           </button>
         </form>
