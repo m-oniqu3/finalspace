@@ -2,6 +2,7 @@
 
 import NavLinks from "@/components/NavLinks";
 import Search from "@/components/Search";
+import Logout from "@/components/navbar/Logout";
 import MobileMenu from "@/components/navbar/MobileMenu";
 import Container from "@/components/ui/Container";
 import { getCurrentSession } from "@/utils/auth";
@@ -22,10 +23,13 @@ interface Props {
 const Navbar = (props: Props) => {
   const { showSearchbar } = props;
   const [showMenu, setShowMenu] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const [user, setUser] = useState<string>("");
 
   const handleMenu = () => setShowMenu((state) => !state);
+  const handleLogout = () => setShowDialog((state) => !state);
   const closeMenu = () => setShowMenu(false);
+  const closeDialog = () => setShowDialog(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -39,8 +43,6 @@ const Navbar = (props: Props) => {
 
     getUser();
   }, []);
-
-  console.log(user);
 
   return (
     <Fragment>
@@ -80,22 +82,25 @@ const Navbar = (props: Props) => {
 
           <div className="hidden md:grid md:gap-4 md:col-start-12 md:grid-cols-2 md:col-span-1">
             <HeartIcon className="h-7 w-7 text-slate-400 cursor-pointer " />
-            {user ? (
-              <Avatar
-                name={user}
-                size="28"
-                round={true}
-                color="rgb(165 180 252)"
-                fgColor="white"
-              />
-            ) : (
-              <UserCircleIcon className="h-7 w-7 text-slate-400 cursor-pointer" />
-            )}
+            <div onClick={handleLogout} className="cursor-pointer">
+              {user ? (
+                <Avatar
+                  name={user}
+                  size="28"
+                  round={true}
+                  color="rgb(165 180 252)"
+                  fgColor="white"
+                />
+              ) : (
+                <UserCircleIcon className="h-7 w-7 text-slate-400 cursor-pointer" />
+              )}
+            </div>
           </div>
         </Container>
       </nav>
 
       {showMenu && <MobileMenu closeMenu={closeMenu} />}
+      {showDialog && <Logout closeDialog={closeDialog} user={user} />}
     </Fragment>
   );
 };
