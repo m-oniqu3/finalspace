@@ -4,6 +4,7 @@ import NavLinks from "@/components/NavLinks";
 import Search from "@/components/Search";
 import MobileMenu from "@/components/navbar/MobileMenu";
 import Container from "@/components/ui/Container";
+import { getCurrentSession } from "@/utils/auth";
 import {
   Bars4Icon,
   HeartIcon,
@@ -11,7 +12,8 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import Avatar from "react-avatar";
 
 interface Props {
   showSearchbar: boolean;
@@ -20,9 +22,25 @@ interface Props {
 const Navbar = (props: Props) => {
   const { showSearchbar } = props;
   const [showMenu, setShowMenu] = useState(false);
+  const [user, setUser] = useState<string>("");
 
   const handleMenu = () => setShowMenu((state) => !state);
   const closeMenu = () => setShowMenu(false);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const session = await getCurrentSession();
+
+      if (session && session.user) {
+        const { user } = session;
+        user.email && setUser(user.email);
+      }
+    };
+
+    getUser();
+  }, []);
+
+  console.log(user);
 
   return (
     <Fragment>
@@ -62,7 +80,17 @@ const Navbar = (props: Props) => {
 
           <div className="hidden md:grid md:gap-4 md:col-start-12 md:grid-cols-2 md:col-span-1">
             <HeartIcon className="h-7 w-7 text-slate-400 cursor-pointer " />
-            <UserCircleIcon className="h-7 w-7 text-slate-400 cursor-pointer" />
+            {user ? (
+              <Avatar
+                name={user}
+                size="28"
+                round={true}
+                color="rgb(165 180 252)"
+                fgColor="white"
+              />
+            ) : (
+              <UserCircleIcon className="h-7 w-7 text-slate-400 cursor-pointer" />
+            )}
           </div>
         </Container>
       </nav>

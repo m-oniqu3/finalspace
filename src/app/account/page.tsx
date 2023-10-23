@@ -1,14 +1,12 @@
 import Form from "@/app/account/Form";
 import Container from "@/components/ui/Container";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { getCurrentSession } from "@/utils/auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
 const Account = async () => {
-  const supabase = createServerComponentClient({ cookies });
-  const { data } = await supabase.auth.getSession();
-  if (data.session) redirect("/characters");
+  const session = await getCurrentSession();
+  if (session) redirect("/characters");
 
   return (
     <div className="bg-indigo-100 h-screen">

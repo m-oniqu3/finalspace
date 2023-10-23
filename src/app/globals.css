@@ -4,7 +4,6 @@
 
 * {
     font-weight: 300;
-
 }
 
 body {
@@ -22,7 +21,7 @@ body {
     }
 
     .submit {
-        @apply rounded-md font-medium border border-indigo-400 bg-indigo-900 text-indigo-100 py-[.4rem] px-[1.2rem] hover:bg-indigo-800 transition-all duration-300 ease-in-out
+        @apply rounded-md font-medium border bg-indigo-900 text-indigo-100 py-[.4rem] px-[1.2rem] hover:bg-indigo-800 transition-all duration-300 ease-in-out
     }
 }
 
