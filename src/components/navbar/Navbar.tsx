@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import Avatar from "react-avatar";
 
@@ -25,11 +26,15 @@ const Navbar = (props: Props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [user, setUser] = useState<string>("");
+  const pathname = usePathname();
 
   const handleMenu = () => setShowMenu((state) => !state);
   const handleLogout = () => setShowDialog((state) => !state);
   const closeMenu = () => setShowMenu(false);
   const closeDialog = () => setShowDialog(false);
+
+  const isLikesPage =
+    pathname === "/likes" ? "text-indigo-900" : "text-slate-400";
 
   useEffect(() => {
     const getUser = async () => {
@@ -81,7 +86,11 @@ const Navbar = (props: Props) => {
           />
 
           <div className="hidden md:grid md:gap-4 md:col-start-12 md:grid-cols-2 md:col-span-1">
-            <HeartIcon className="h-7 w-7 text-slate-400 cursor-pointer " />
+            <Link href="/likes">
+              <HeartIcon
+                className={`h-7 w-7 ${isLikesPage} cursor-pointer hover:text-indigo-900`}
+              />
+            </Link>
             <div onClick={handleLogout} className="cursor-pointer">
               {user ? (
                 <Avatar

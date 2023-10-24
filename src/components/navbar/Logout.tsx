@@ -1,8 +1,12 @@
 "use client";
 
+import { Database } from "@/lib/database.types";
+import { notify } from "@/utils/notify";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Avatar from "react-avatar";
 
@@ -13,6 +17,20 @@ interface Props {
 
 const Logout = (props: Props) => {
   const { closeDialog, user } = props;
+  const supabase = createClientComponentClient<Database>();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      router.push("/");
+      router.refresh();
+    } catch (error: any) {
+      console.log(error);
+      notify.error(error.message);
+    }
+  };
 
   useEffect(() => {
     function closeDialogOnResize() {
@@ -59,6 +77,7 @@ const Logout = (props: Props) => {
           Your Likes
         </Link>
         <button
+          onClick={handleSignOut}
           className="w-full px-2 py-[7px]  hover:bg-indigo-200 hover:rounded-md transition-all duration-300 ease-in-out text-left
       "
         >
