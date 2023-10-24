@@ -51,7 +51,7 @@ const Navbar = (props: Props) => {
 
   return (
     <Fragment>
-      <nav className="h-[10vh] grid place-items-center border-b-[1px] border-slate-300 bg-indigo-100 fixed top-0 w-full z-10">
+      <nav className="h-[10vh] grid place-items-center border-b-[1px] border-slate-300 bg-indigo-100 fixed top-0 w-full z-10 ">
         <Container
           className={`grid gap-4 place-items-center 
       ${showSearchbar ? "grid-cols-[auto_1fr_auto]" : "grid-cols-[100px_1fr] "}
@@ -86,7 +86,7 @@ const Navbar = (props: Props) => {
           />
 
           <div className="hidden md:grid md:gap-4 md:col-start-12 md:grid-cols-2 md:col-span-1">
-            <Link href="/likes">
+            <Link href="/likes?query=characters">
               <HeartIcon
                 className={`h-7 w-7 ${isLikesPage} cursor-pointer hover:text-indigo-900`}
               />

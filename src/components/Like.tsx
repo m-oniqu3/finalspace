@@ -73,14 +73,16 @@ const Like = (props: Props) => {
           ])
           .select()
           .single();
+
         if (error) {
           throw error;
         }
 
-        if (data) {
+        if (data.id) {
           console.log(data);
           toast.message("Liked!", {
             description: `Added ${cardData.title} to your liked ${cardType}s.`,
+            position: "bottom-right",
           });
         }
       }

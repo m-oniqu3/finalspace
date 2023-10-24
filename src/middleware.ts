@@ -15,6 +15,12 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/account", req.url));
   }
 
+  if (req.nextUrl.pathname.startsWith("/likes")) {
+    // const requestHeaders = new Headers(req.headers);
+    // console.log(req.nextUrl.searchParams.get("query"));
+    //send query to server component
+  }
+
   return res;
 }
 
@@ -24,5 +30,6 @@ export const config = {
     "/episodes/:path*",
     "/quotes/:path*",
     "/locations/:path*",
+    "/likes/:path*",
   ],
 };
