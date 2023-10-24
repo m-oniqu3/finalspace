@@ -6,6 +6,7 @@ import { getCurrentSession } from "@/utils/auth";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { MouseEvent, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
   cardData: {
@@ -17,14 +18,16 @@ interface Props {
     link: string;
   };
   cardType: "character" | "location" | "episode";
+  isLiked: boolean;
 }
 
 const Like = (props: Props) => {
   const [user, setUserId] = useState<string>("");
   const supabase = createClientComponentClient<Database>();
-  const [liked, setLiked] = useState<boolean>(false);
+  const [liked, setLiked] = useState<boolean>(props.isLiked);
 
   const { cardData, cardType } = props;
+  const classes = liked ? "text-indigo-900" : "text-indigo-300";
 
   const table = (() => {
     switch (cardType) {
@@ -51,6 +54,8 @@ const Like = (props: Props) => {
     e.preventDefault();
     e.stopPropagation();
 
+    setLiked((state) => !state);
+
     try {
       if (user) {
         const { data, error } = await supabase
@@ -74,6 +79,9 @@ const Like = (props: Props) => {
 
         if (data) {
           console.log(data);
+          toast.message("Liked!", {
+            description: `Added ${cardData.title} to your liked ${cardType}s.`,
+          });
         }
       }
     } catch (error) {
@@ -83,7 +91,7 @@ const Like = (props: Props) => {
 
   return (
     <div onClick={handleLike}>
-      <HeartIcon className="h-7 w-7 text-indigo-300 " />
+      <HeartIcon className={`h-7 w-7  ${classes}`} />
     </div>
   );
 };

@@ -11,12 +11,13 @@ interface Props {
   subtitle: string;
   text: string;
   cardType: "character" | "location" | "episode";
+  isLiked: boolean;
 }
 
 const russo = Russo_One({ weight: "400", subsets: ["latin"] });
 
 const Card = (props: Props) => {
-  const { url, link, title, subtitle, text, id, cardType } = props;
+  const { url, link, title, subtitle, text, id, cardType, isLiked } = props;
   return (
     <Link
       href={link}
@@ -50,7 +51,7 @@ const Card = (props: Props) => {
       </div>
 
       <div className="z-20 absolute right-6 bottom-6">
-        <Like cardData={props} cardType={cardType} />
+        <Like cardData={props} cardType={cardType} isLiked={isLiked} />
       </div>
     </Link>
   );
