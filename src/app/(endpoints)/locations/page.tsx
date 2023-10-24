@@ -34,6 +34,7 @@ const Locations = async (props: Props) => {
         subtitle={location.type}
         text={`Inhabitants: ${location.inhabitants.length}`}
         key={location.id}
+        cardType="location"
       />
     );
   });

@@ -75,6 +75,7 @@ const page = async (props: Props) => {
                     subtitle={character.species}
                     text={character.origin}
                     key={character.id}
+                    cardType="character"
                   />
                 );
               })}

@@ -1,18 +1,89 @@
 "use client";
 
-import { HeartIcon } from "@heroicons/react/24/outline";
-import { MouseEvent } from "react";
+import { Database } from "@/lib/database.types";
+import { getCurrentSession } from "@/utils/auth";
+// import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/solid";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { MouseEvent, useEffect, useState } from "react";
 
-const Like = () => {
-  const handleLike = (e: MouseEvent) => {
+interface Props {
+  cardData: {
+    id: string;
+    title: string;
+    subtitle: string;
+    text: string;
+    url: string;
+    link: string;
+  };
+  cardType: "character" | "location" | "episode";
+}
+
+const Like = (props: Props) => {
+  const [user, setUserId] = useState<string>("");
+  const supabase = createClientComponentClient<Database>();
+  const [liked, setLiked] = useState<boolean>(false);
+
+  const { cardData, cardType } = props;
+
+  const table = (() => {
+    switch (cardType) {
+      case "character":
+        return "characters";
+      case "location":
+        return "locations";
+      case "episode":
+        return "episodes";
+      default:
+        return "characters";
+    }
+  })();
+
+  useEffect(() => {
+    getCurrentSession().then((session) => {
+      if (session) {
+        setUserId(session.user.id);
+      }
+    });
+  }, []);
+
+  const handleLike = async (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("liked");
+
+    try {
+      if (user) {
+        const { data, error } = await supabase
+          .from(table)
+          .insert([
+            {
+              user_id: user,
+              card_id: +cardData.id.split("#")[1],
+              title: cardData.title,
+              subtitle: cardData.subtitle,
+              text: cardData.text,
+              url: cardData.url,
+              link: cardData.link,
+            },
+          ])
+          .select()
+          .single();
+        if (error) {
+          throw error;
+        }
+
+        if (data) {
+          console.log(data);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div onClick={handleLike}>
-      <HeartIcon className="h-7 w-7 text-indigo-900 " />
+      <HeartIcon className="h-7 w-7 text-indigo-300 " />
     </div>
   );
 };

@@ -40,6 +40,7 @@ const Episodes = async (props: Props) => {
         subtitle={airDate}
         text={`Characters: ${episode.characters.length}`}
         key={episode.id}
+        cardType="episode"
       />
     );
   });
