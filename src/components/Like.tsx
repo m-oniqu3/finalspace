@@ -57,18 +57,23 @@ const Like = (props: Props) => {
     if (!user) router.replace("/account");
 
     if (!liked) {
-      const { error } = await addToDatabase({ table, user, cardData });
-
-      if (error) {
-        toast.message("Error adding to favourites", {
-          description: "We couldn't add this to your favourites. Please try again later.",
-        });
-      }
+      toast.promise(addToDatabase({ table, user, cardData }), {
+        loading: "Adding  character",
+        success: () => "Successfully added!",
+        error: () => {
+          setLiked(false);
+          return "Could not add character.";
+        },
+        position: "bottom-right",
+      });
     } else if (liked) {
       toast.promise(removeFromDatabase({ table, id: cardData.id }), {
         loading: "Removing from likes",
         success: () => "Successfully removed!",
-        error: "Could not remove from likes.",
+        error: () => {
+          setLiked(true);
+          return "Could not remove from likes.";
+        },
         position: "bottom-right",
       });
     }

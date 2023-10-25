@@ -46,8 +46,8 @@ export async function addToDatabase({ table, user, cardData }: AddToDatabaseProp
     if (error) {
       throw new Error(error.message);
     }
-  } catch (error: any) {
-    return error.message;
+  } catch (error) {
+    return error;
   }
 }
 
