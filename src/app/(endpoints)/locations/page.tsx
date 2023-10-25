@@ -35,15 +35,12 @@ const Locations = async (props: Props) => {
         text={`Inhabitants: ${location.inhabitants.length}`}
         key={location.id}
         cardType="location"
+        isLiked={false}
       />
     );
   });
 
-  let content = filteredLocations.length ? (
-    <Grid>{renderLocations}</Grid>
-  ) : (
-    <Empty />
-  );
+  let content = filteredLocations.length ? <Grid>{renderLocations}</Grid> : <Empty />;
 
   return <StaticLayout>{content}</StaticLayout>;
 };

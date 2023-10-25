@@ -49,17 +49,13 @@ const page = async (props: Props) => {
           <article className="flex flex-col gap-2 items-center text-indigo-900">
             <h1 className="font-bold text-4xl truncate ">{episode.name}</h1>
             <p className="font-normal truncate">Written by: {episode.writer}</p>
-            <p className="font-normal truncate">
-              Directed by: {episode.director}
-            </p>
+            <p className="font-normal truncate">Directed by: {episode.director}</p>
             <p className="font-normal truncate">Air Date: {airdate}</p>
           </article>
         </section>
 
         <article className="grid place-items-center gap-4">
-          <h2 className="font-medium text-2xl mb-4 text-indigo-900">
-            Characters in {episode.name}
-          </h2>
+          <h2 className="font-medium text-2xl mb-4 text-indigo-900">Characters in {episode.name}</h2>
 
           <Grid>
             {characters.map((character) => (
@@ -72,6 +68,7 @@ const page = async (props: Props) => {
                 text={character.origin}
                 key={character.id}
                 cardType="character"
+                isLiked={false}
               />
             ))}
           </Grid>

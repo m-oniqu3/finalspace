@@ -1,10 +1,9 @@
 "use client";
 
-import { Database } from "@/lib/database.types";
+import { addToDatabase, removeFromDatabase } from "@/actions/likesActions";
 import { getCurrentSession } from "@/utils/auth";
-// import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -23,11 +22,10 @@ interface Props {
 
 const Like = (props: Props) => {
   const [user, setUserId] = useState<string>("");
-  const supabase = createClientComponentClient<Database>();
   const [liked, setLiked] = useState<boolean>(props.isLiked);
+  const router = useRouter();
 
   const { cardData, cardType } = props;
-  const classes = liked ? "text-indigo-900" : "text-indigo-300";
 
   const table = (() => {
     switch (cardType) {
@@ -50,50 +48,34 @@ const Like = (props: Props) => {
     });
   }, []);
 
-  const handleLike = async (e: MouseEvent) => {
+  const handleLike = (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     setLiked((state) => !state);
 
-    try {
-      if (user) {
-        const { data, error } = await supabase
-          .from(table)
-          .insert([
-            {
-              user_id: user,
-              card_id: +cardData.id.split("#")[1],
-              title: cardData.title,
-              subtitle: cardData.subtitle,
-              text: cardData.text,
-              url: cardData.url,
-              link: cardData.link,
-            },
-          ])
-          .select()
-          .single();
+    if (!user) router.replace("/account");
 
-        if (error) {
-          throw error;
-        }
-
-        if (data.id) {
-          console.log(data);
-          toast.message("Liked!", {
-            description: `Added ${cardData.title} to your liked ${cardType}s.`,
-            position: "bottom-right",
-          });
-        }
-      }
-    } catch (error) {
-      console.log(error);
+    if (!liked) {
+      addToDatabase({ table, user, cardData }).catch((err) => {
+        console.log(err);
+        toast.message("Error adding to favourites", {
+          description: "We couldn't add this to your favourites. Please try again later.",
+        });
+      });
+    } else if (liked) {
+      toast.promise(removeFromDatabase({ table, id: cardData.id }), {
+        loading: "Removing from likes",
+        success: () => "Successfully removed!",
+        error: "Could not remove from likes.",
+        position: "bottom-right",
+      });
     }
   };
 
   return (
-    <div onClick={handleLike}>
-      <HeartIcon className={`h-7 w-7  ${classes}`} />
+    <div onClick={handleLike} key={cardData.id}>
+      <HeartIcon className={`h-7 w-7  ${liked ? "text-indigo-900" : "text-indigo-300"}`} />
     </div>
   );
 };

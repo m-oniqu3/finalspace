@@ -6,6 +6,8 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 const Account = async () => {
   const supabase = createServerComponentClient<Database>({ cookies });
   const { data } = await supabase.auth.getSession();
@@ -16,13 +18,7 @@ const Account = async () => {
     <div className="bg-indigo-100 h-screen">
       <nav className="h-[10vh] flex items-center">
         <Container>
-          <Image
-            src="/logo.png"
-            alt="final space logo"
-            width={70}
-            height={70}
-            className=""
-          />
+          <Image src="/logo.png" alt="final space logo" width={70} height={70} className="" />
         </Container>
       </nav>
       <Form />
