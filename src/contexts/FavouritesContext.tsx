@@ -1,6 +1,5 @@
 "use client";
 
-import { Character } from "@/types";
 import { createContext, useContext, useReducer } from "react";
 
 interface IFavouritesContext {
@@ -15,16 +14,26 @@ interface Props {
 }
 
 interface Favourites {
-  characters: Character[];
+  characters: CardData[];
 }
 
-enum ActionTypes {
-  add_to_favourites = "add_to_favourites",
+export enum ActionTypes {
+  add_to_characters = "add_to_characters",
+}
+
+interface CardData {
+  id: string;
+  title: string;
+  subtitle: string;
+  text: string;
+  url: string;
+  link: string;
+  created_at: number;
 }
 
 interface Action {
   type: ActionTypes;
-  payload: Character;
+  payload: CardData;
 }
 
 function reducer(state: Favourites, action: Action) {
@@ -33,7 +42,7 @@ function reducer(state: Favourites, action: Action) {
   const { type } = action;
 
   switch (type) {
-    case ActionTypes.add_to_favourites:
+    case ActionTypes.add_to_characters:
       return {
         ...state,
         characters: [...state.characters, action.payload],
@@ -51,6 +60,8 @@ export default function FavouritesContextProvider(props: Props) {
     state,
     dispatch,
   };
+
+  console.log(state);
 
   return (
     <FavouritesContext.Provider value={values}>
