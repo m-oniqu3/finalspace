@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { Fragment } from "react";
 
+export const dynamic = "force-dynamic";
 const options = ["Characters", "Locations", "Episodes"];
 
 interface Props {
@@ -27,7 +28,7 @@ const page = async (props: Props) => {
     console.log(error);
   }
 
-  // if (characters) console.log(characters);
+  //if (characters) console.log(characters);
 
   const content = (() => {
     switch (searchParams["query"]) {
@@ -88,9 +89,7 @@ const page = async (props: Props) => {
   return (
     <DynamicLayout>
       <nav className="mb-6">
-        <ul className="grid grid-cols-3 gap-2 w-fit mx-auto md:m-0 md:ml-auto">
-          {renderOptions}
-        </ul>
+        <ul className="grid grid-cols-3 gap-2 w-fit mx-auto md:m-0 md:ml-auto">{renderOptions}</ul>
       </nav>
 
       <Fragment>{renderContent()}</Fragment>

@@ -61,9 +61,7 @@ const page = async (props: Props) => {
 
         {residents.length > 0 && (
           <article className="grid place-items-center gap-4">
-            <h2 className="font-medium text-2xl mb-4 text-indigo-900">
-              Residents of {location.name}
-            </h2>
+            <h2 className="font-medium text-2xl mb-4 text-indigo-900">Residents of {location.name}</h2>
             <Grid>
               {residents.map((character) => {
                 return (
@@ -76,6 +74,7 @@ const page = async (props: Props) => {
                     text={character.origin}
                     key={character.id}
                     cardType="character"
+                    isLiked={false}
                   />
                 );
               })}

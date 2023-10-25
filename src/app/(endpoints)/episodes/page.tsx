@@ -25,11 +25,7 @@ const Episodes = async (props: Props) => {
   const filteredEpisodes = filterData();
 
   const renderEpisodes = filteredEpisodes.map((episode) => {
-    const airDate = new Date(episode.air_date)
-      .toDateString()
-      .split(" ")
-      .slice(1)
-      .join(" ");
+    const airDate = new Date(episode.air_date).toDateString().split(" ").slice(1).join(" ");
 
     return (
       <Card
@@ -41,15 +37,12 @@ const Episodes = async (props: Props) => {
         text={`Characters: ${episode.characters.length}`}
         key={episode.id}
         cardType="episode"
+        isLiked={false}
       />
     );
   });
 
-  let content = filteredEpisodes.length ? (
-    <Grid>{renderEpisodes}</Grid>
-  ) : (
-    <Empty />
-  );
+  let content = filteredEpisodes.length ? <Grid>{renderEpisodes}</Grid> : <Empty />;
 
   return <StaticLayout>{content}</StaticLayout>;
 };
