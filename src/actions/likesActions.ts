@@ -29,7 +29,7 @@ export async function addToDatabase({ table, user, cardData }: AddToDatabaseProp
   const id = parseInt(cardData.id.split("#")[1]).toString();
 
   try {
-    await supabase.from(table).insert([
+    const { error } = await supabase.from(table).insert([
       {
         user_id: user,
         card_id: id,
@@ -43,13 +43,11 @@ export async function addToDatabase({ table, user, cardData }: AddToDatabaseProp
 
     revalidatePath("/likes");
 
-    //   if (error: PostgrestError || null) {
-    //       if (error) {
-    //         throw new Error(error?.message)
-    //    }
-    //   }
+    if (error) {
+      throw new Error(error.message);
+    }
   } catch (error: any) {
-    throw new Error(error);
+    return error.message;
   }
 }
 

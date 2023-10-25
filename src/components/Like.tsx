@@ -48,7 +48,7 @@ const Like = (props: Props) => {
     });
   }, []);
 
-  const handleLike = (e: MouseEvent) => {
+  const handleLike = async (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -57,12 +57,13 @@ const Like = (props: Props) => {
     if (!user) router.replace("/account");
 
     if (!liked) {
-      addToDatabase({ table, user, cardData }).catch((err) => {
-        console.log(err);
+      const { error } = await addToDatabase({ table, user, cardData });
+
+      if (error) {
         toast.message("Error adding to favourites", {
           description: "We couldn't add this to your favourites. Please try again later.",
         });
-      });
+      }
     } else if (liked) {
       toast.promise(removeFromDatabase({ table, id: cardData.id }), {
         loading: "Removing from likes",
