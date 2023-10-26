@@ -1,3 +1,4 @@
+import EmptyLikes from "@/components/EmptyLikes";
 import Card from "@/components/ui/Card";
 import Grid from "@/components/ui/Grid";
 import { Database } from "@/lib/database.types";
@@ -19,7 +20,7 @@ const CharacterLikes = async () => {
     if (error) {
       return <p>{error.message}</p>;
     } else if (characters?.length === 0 || characters === null) {
-      return <p>No characters found</p>;
+      return <EmptyLikes category="characters" />;
     }
 
     return (

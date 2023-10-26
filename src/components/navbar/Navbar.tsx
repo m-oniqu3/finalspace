@@ -29,7 +29,7 @@ const Navbar = (props: Props) => {
   const closeMenu = () => setShowMenu(false);
   const closeDialog = () => setShowDialog(false);
 
-  const isLikesPage = pathname === "/likes" ? "text-indigo-900" : "text-slate-400";
+  const isLikesPage = pathname.startsWith("/likes") ? "text-indigo-900" : "text-slate-400";
 
   useEffect(() => {
     const getUser = async () => {
