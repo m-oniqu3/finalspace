@@ -30,10 +30,10 @@ const CharacterLikes = async () => {
             <Card
               id={`C #${character.card_id.toString().padStart(3, "0")}`}
               link={character.link}
-              url={character.url}
+              url={character.url ?? ""}
               title={character.title}
               subtitle={character.subtitle}
-              text={character.text}
+              text={character.text ?? ""}
               key={character.id}
               cardType="character"
               isLiked={true}

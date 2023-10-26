@@ -58,21 +58,21 @@ const Like = (props: Props) => {
 
     if (!liked) {
       toast.promise(addToDatabase({ table, user, cardData }), {
-        loading: "Adding  character",
+        loading: `Adding to ${table}...`,
         success: () => "Successfully added!",
         error: () => {
           setLiked(false);
-          return "Could not add character.";
+          return `Could not add to ${table}.`;
         },
         position: "bottom-right",
       });
     } else if (liked) {
       toast.promise(removeFromDatabase({ table, id: cardData.id }), {
-        loading: "Removing from likes",
+        loading: `Removing from ${table}`,
         success: () => "Successfully removed!",
         error: () => {
           setLiked(true);
-          return "Could not remove from likes.";
+          return `Failed to remove entry from ${table}. Try again.`;
         },
         position: "bottom-right",
       });

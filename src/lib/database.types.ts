@@ -9,7 +9,78 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      [_ in never]: never
+      characters: {
+        Row: {
+          card_id: number
+          created_at: string
+          id: number
+          link: string
+          subtitle: string
+          text: string | null
+          title: string
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          card_id: number
+          created_at?: string
+          id?: number
+          link: string
+          subtitle: string
+          text?: string | null
+          title: string
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          card_id?: number
+          created_at?: string
+          id?: number
+          link?: string
+          subtitle?: string
+          text?: string | null
+          title?: string
+          url?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      locations: {
+        Row: {
+          card_id: number
+          created_at: string
+          id: number
+          link: string
+          subtitle: string
+          text: string | null
+          title: string
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          card_id: number
+          created_at?: string
+          id?: number
+          link: string
+          subtitle: string
+          text?: string | null
+          title: string
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          card_id?: number
+          created_at?: string
+          id?: number
+          link?: string
+          subtitle?: string
+          text?: string | null
+          title?: string
+          url?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

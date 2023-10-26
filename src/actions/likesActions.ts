@@ -44,10 +44,11 @@ export async function addToDatabase({ table, user, cardData }: AddToDatabaseProp
     revalidatePath("/likes");
 
     if (error) {
+      console.log(error);
       throw new Error(error.message);
     }
-  } catch (error) {
-    return error;
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }
 
@@ -58,11 +59,12 @@ export async function removeFromDatabase({ table, id }: RemoveFromDatabaseProps)
     const { error } = await supabase.from(table).delete().eq("card_id", ID);
 
     if (error) {
+      console.log(error);
       throw new Error(error.message);
     }
 
     revalidatePath("/likes");
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }
