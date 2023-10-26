@@ -36,9 +36,7 @@ const Card = (props: Props) => {
         alt="final space logo"
         width={180}
         height={180}
-        placeholder="blur"
         quality={90}
-        blurDataURL={url}
         className="pos shape rounded-lg mb-4 h-40 w-30 w-full object-cover"
       />
       <div className="flex flex-col gap-[0.4rem]">

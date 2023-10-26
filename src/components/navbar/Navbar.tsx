@@ -6,11 +6,7 @@ import Logout from "@/components/navbar/Logout";
 import MobileMenu from "@/components/navbar/MobileMenu";
 import Container from "@/components/ui/Container";
 import { getCurrentSession } from "@/utils/auth";
-import {
-  Bars4Icon,
-  HeartIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
+import { Bars4Icon, HeartIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -33,8 +29,7 @@ const Navbar = (props: Props) => {
   const closeMenu = () => setShowMenu(false);
   const closeDialog = () => setShowDialog(false);
 
-  const isLikesPage =
-    pathname === "/likes" ? "text-indigo-900" : "text-slate-400";
+  const isLikesPage = pathname.startsWith("/likes") ? "text-indigo-900" : "text-slate-400";
 
   useEffect(() => {
     const getUser = async () => {
@@ -80,26 +75,15 @@ const Navbar = (props: Props) => {
             </div>
           )}
 
-          <Bars4Icon
-            className="h-6 w-6 text-gray-500 cursor-pointer ml-auto md:hidden"
-            onClick={handleMenu}
-          />
+          <Bars4Icon className="h-6 w-6 text-gray-500 cursor-pointer ml-auto md:hidden" onClick={handleMenu} />
 
           <div className="hidden md:grid md:gap-4 md:col-start-12 md:grid-cols-2 md:col-span-1">
-            <Link href="/likes?query=characters">
-              <HeartIcon
-                className={`h-7 w-7 ${isLikesPage} cursor-pointer hover:text-indigo-900`}
-              />
+            <Link href="/likes/characters">
+              <HeartIcon className={`h-7 w-7 ${isLikesPage} cursor-pointer hover:text-indigo-900`} />
             </Link>
             <div onClick={handleLogout} className="cursor-pointer">
               {user ? (
-                <Avatar
-                  name={user}
-                  size="28"
-                  round={true}
-                  color="rgb(165 180 252)"
-                  fgColor="white"
-                />
+                <Avatar name={user} size="28" round={true} color="rgb(165 180 252)" fgColor="white" />
               ) : (
                 <UserCircleIcon className="h-7 w-7 text-slate-400 cursor-pointer" />
               )}

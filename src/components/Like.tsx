@@ -48,7 +48,7 @@ const Like = (props: Props) => {
     });
   }, []);
 
-  const handleLike = (e: MouseEvent) => {
+  const handleLike = async (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -57,17 +57,23 @@ const Like = (props: Props) => {
     if (!user) router.replace("/account");
 
     if (!liked) {
-      addToDatabase({ table, user, cardData }).catch((err) => {
-        console.log(err);
-        toast.message("Error adding to favourites", {
-          description: "We couldn't add this to your favourites. Please try again later.",
-        });
+      toast.promise(addToDatabase({ table, user, cardData }), {
+        loading: `Adding to ${table}...`,
+        success: () => "Successfully added!",
+        error: () => {
+          setLiked(false);
+          return `Could not add to ${table}.`;
+        },
+        position: "bottom-right",
       });
     } else if (liked) {
       toast.promise(removeFromDatabase({ table, id: cardData.id }), {
-        loading: "Removing from likes",
+        loading: `Removing from ${table}`,
         success: () => "Successfully removed!",
-        error: "Could not remove from likes.",
+        error: () => {
+          setLiked(true);
+          return `Failed to remove entry from ${table}. Try again.`;
+        },
         position: "bottom-right",
       });
     }

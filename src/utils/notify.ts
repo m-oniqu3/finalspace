@@ -8,8 +8,7 @@ export const notify = {
 
   verify() {
     toast.message("Email Verification", {
-      description:
-        "We've sent you an email to verify your account. Please click the link in the email to continue.",
+      description: "We've sent you an email to verify your account. Please click the link in the email to continue.",
       dismissible: true,
       style: this.style,
     });
