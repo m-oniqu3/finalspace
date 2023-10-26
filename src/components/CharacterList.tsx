@@ -1,3 +1,4 @@
+import ErrorMessage from "@/components/ErrorMessage";
 import Card from "@/components/ui/Card";
 import Grid from "@/components/ui/Grid";
 import { Database } from "@/lib/database.types";
@@ -16,7 +17,7 @@ const CharacterList = async (props: Props) => {
   let { data, error } = await supabase.from("characters").select("card_id");
 
   if (error) {
-    return <p className="text-center">We could not fetch your liked characters. Try refreshing the page.</p>;
+    return <ErrorMessage message="We could not fetch your liked characters." />;
   }
 
   const likedCharacters: number[] = data?.map((character) => character.card_id as number) || [];

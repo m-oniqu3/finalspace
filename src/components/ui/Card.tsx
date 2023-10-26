@@ -21,7 +21,7 @@ const Card = (props: Props) => {
   return (
     <Link
       href={link}
-      className="bg-indigo-200 min-h-[300px] w-[280px] p-6 rounded-xl text-indigo-900 border-indigo-300 relative z-0"
+      className="bg-indigo-200 min-h-[320px] w-[280px] p-6 rounded-xl text-indigo-900 border-indigo-300 relative z-0"
       key={id}
     >
       <p

@@ -1,4 +1,5 @@
 import Empty from "@/components/Empty";
+import ErrorMessage from "@/components/ErrorMessage";
 import StaticLayout from "@/components/layouts/StaticLayout";
 import Card from "@/components/ui/Card";
 import Grid from "@/components/ui/Grid";
@@ -8,7 +9,6 @@ import { fetchData } from "@/utils/fetchData";
 import { filterCharacters } from "@/utils/filters";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { toast } from "sonner";
 
 export const dynamic = "force-dynamic";
 interface Props {
@@ -23,9 +23,7 @@ const page = async (props: Props) => {
   let { data: characters, error } = await supabase.from("characters").select("card_id");
 
   if (error) {
-    toast.message("Something went wrong", {
-      description: "We couldn't get your liked characters. Try refreshing the page.",
-    });
+    return <ErrorMessage message="We could not load your liked characters." />;
   }
 
   const likedCharacters: number[] = characters?.map((character) => character.card_id as number) || [];

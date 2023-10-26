@@ -1,4 +1,5 @@
 import Empty from "@/components/Empty";
+import ErrorMessage from "@/components/ErrorMessage";
 import StaticLayout from "@/components/layouts/StaticLayout";
 import Card from "@/components/ui/Card";
 import Grid from "@/components/ui/Grid";
@@ -8,7 +9,6 @@ import { fetchData } from "@/utils/fetchData";
 import { filterLocations } from "@/utils/filters";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { toast } from "sonner";
 
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -22,9 +22,7 @@ const Locations = async (props: Props) => {
   let { data: locations, error } = await supabase.from("locations").select("card_id");
 
   if (error) {
-    toast.message("Something went wrong", {
-      description: "We couldn't get your liked locations. Try refreshing the page.",
-    });
+    return <ErrorMessage message="We could not load your liked locations." />;
   }
 
   const likedLocations: number[] = locations?.map((location) => location.card_id as number) || [];
