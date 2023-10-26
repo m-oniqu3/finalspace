@@ -18,7 +18,8 @@ const CharacterLikes = async () => {
 
   const renderContent = (function () {
     if (error) {
-      return <p>{error.message}</p>;
+      throw new Error("Something went wrong while trying to fetch your likes.");
+      // return <p>{error.message}</p>;
     } else if (characters?.length === 0 || characters === null) {
       return <EmptyLikes category="characters" />;
     }

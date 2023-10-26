@@ -17,7 +17,7 @@ const EmptyLikes = (props: Props) => {
         </p>
         <Link
           href={`/${props.category}`}
-          className="mt-2 font-normal bg-indigo-300 text-indigo-600 py-2 px-4 rounded-md hover:bg-indigo-600  hover:text-indigo-100 transition-all ease-in-out duration-300"
+          className="mt-2  font-light rounded-md bg-indigo-200 py-1.5 px-5 border border-indigo-300 min-w-fit hover:border-indigo-500 hover:bg-indigo-300  transition duration-300 ease-in-out"
         >
           Take me there
         </Link>

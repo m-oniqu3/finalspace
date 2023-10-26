@@ -1,9 +1,9 @@
+import CharacterList from "@/components/CharacterList";
 import DynamicLayout from "@/components/layouts/DynamicLayout";
-import Card from "@/components/ui/Card";
-import Grid from "@/components/ui/Grid";
 import Pill from "@/components/ui/Pill";
 import { Character, Location } from "@/types";
 import { fetchDataById } from "@/utils/fetchData";
+
 import Image from "next/image";
 
 interface Props {
@@ -35,8 +35,6 @@ const page = async (props: Props) => {
               alt={location.name}
               width={200}
               height={200}
-              placeholder="blur"
-              blurDataURL={location.img_url}
               className="rounded-lg w-full object-cover"
             />
           </div>
@@ -59,28 +57,7 @@ const page = async (props: Props) => {
           </article>
         </section>
 
-        {residents.length > 0 && (
-          <article className="grid place-items-center gap-4">
-            <h2 className="font-medium text-2xl mb-4 text-indigo-900">Residents of {location.name}</h2>
-            <Grid>
-              {residents.map((character) => {
-                return (
-                  <Card
-                    id={`C #${character.id.toString().padStart(3, "0")}`}
-                    link={`/characters/${character.id}`}
-                    url={character.img_url}
-                    title={character.name}
-                    subtitle={character.species}
-                    text={character.origin}
-                    key={character.id}
-                    cardType="character"
-                    isLiked={false}
-                  />
-                );
-              })}
-            </Grid>
-          </article>
-        )}
+        {residents.length > 0 && <CharacterList characters={residents} heading={`Residents of ${location.name}`} />}
       </section>
     </DynamicLayout>
   );
