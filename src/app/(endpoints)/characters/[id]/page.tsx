@@ -41,13 +41,11 @@ const page = async (props: Props) => {
           </div>
 
           <article className="grid gap-3 place-items-center sm:place-items-start">
-            <h1 className="font-bold text-3xl truncate text-indigo-900">
+            <h1 className="font-bold text-3xl  inline-block text-center text-indigo-900 break-words sm:text-start">
               {character.name}
             </h1>
             <div className="grid  gap-x-8 gap-y-4 place-items-center sm:place-items-start">
-              <p className="font-light text-ellipsis w-fit">
-                Species: {character.species}
-              </p>
+              <p className="font-light text-ellipsis w-fit">Species: {character.species}</p>
               <p className="font-light">Status: {character.status}</p>
               <p className="font-light">Origin: {character.origin}</p>
               <p className="font-light">Gender: {character.gender}</p>
@@ -57,21 +55,13 @@ const page = async (props: Props) => {
 
         <div className="flex flex-col gap-8 ">
           <article>
-            <h2 className="font-medium text-lg mb-4 text-indigo-900">
-              Aliases
-            </h2>
-            <div className="flex gap-4 flex-wrap">
-              {aliases && aliases.length > 0 ? aliases : "No aliases"}
-            </div>
+            <h2 className="font-medium text-lg mb-4 text-indigo-900">Aliases</h2>
+            <div className="flex gap-4 flex-wrap">{aliases && aliases.length > 0 ? aliases : "No aliases"}</div>
           </article>
 
           <article>
-            <h2 className="font-medium text-lg mb-4 text-indigo-900">
-              Abilities
-            </h2>
-            <div className="flex gap-4 flex-wrap">
-              {abilities && abilities.length > 0 ? abilities : "No abilities"}
-            </div>
+            <h2 className="font-medium text-lg mb-4 text-indigo-900">Abilities</h2>
+            <div className="flex gap-4 flex-wrap">{abilities && abilities.length > 0 ? abilities : "No abilities"}</div>
           </article>
         </div>
       </section>
