@@ -1,4 +1,5 @@
 import EmptyLikes from "@/components/EmptyLikes";
+import ErrorMessage from "@/components/ErrorMessage";
 import Card from "@/components/ui/Card";
 import Grid from "@/components/ui/Grid";
 import { Database } from "@/lib/database.types";
@@ -12,7 +13,7 @@ const LocationLikes = async () => {
 
   const renderLocations = (function () {
     if (error) {
-      return <p>{error.message}</p>;
+      return <ErrorMessage message="We could not get your liked locations" />;
     } else if (locations?.length === 0 || locations === null) {
       return <EmptyLikes category="locations" />;
     }

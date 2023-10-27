@@ -1,6 +1,5 @@
+import CharacterList from "@/components/CharacterList";
 import DynamicLayout from "@/components/layouts/DynamicLayout";
-import Card from "@/components/ui/Card";
-import Grid from "@/components/ui/Grid";
 import { Character, Episode } from "@/types";
 import { fetchDataById } from "@/utils/fetchData";
 import Image from "next/image";
@@ -54,25 +53,7 @@ const page = async (props: Props) => {
           </article>
         </section>
 
-        <article className="grid place-items-center gap-4">
-          <h2 className="font-medium text-2xl mb-4 text-indigo-900">Characters in {episode.name}</h2>
-
-          <Grid>
-            {characters.map((character) => (
-              <Card
-                id={`C #${character.id.toString().padStart(3, "0")}`}
-                link={`/characters/${character.id}`}
-                url={character.img_url}
-                title={character.name}
-                subtitle={character.species}
-                text={character.origin}
-                key={character.id}
-                cardType="character"
-                isLiked={false}
-              />
-            ))}
-          </Grid>
-        </article>
+        <CharacterList characters={characters} heading={`Characters in ${episode.name}`} />
       </section>
     </DynamicLayout>
   );

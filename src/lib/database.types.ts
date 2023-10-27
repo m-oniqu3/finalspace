@@ -45,6 +45,42 @@ export interface Database {
         }
         Relationships: []
       }
+      episodes: {
+        Row: {
+          card_id: number
+          created_at: string
+          id: number
+          link: string
+          subtitle: string
+          text: string
+          title: string
+          url: string
+          user_id: string
+        }
+        Insert: {
+          card_id: number
+          created_at?: string
+          id?: number
+          link: string
+          subtitle: string
+          text: string
+          title: string
+          url: string
+          user_id: string
+        }
+        Update: {
+          card_id?: number
+          created_at?: string
+          id?: number
+          link?: string
+          subtitle?: string
+          text?: string
+          title?: string
+          url?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       locations: {
         Row: {
           card_id: number

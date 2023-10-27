@@ -10,7 +10,7 @@ const layout = (props: Props) => {
   return (
     <DynamicLayout>
       <LikesNav />
-      <main>{props.children}</main>
+      <main className="pt-6">{props.children}</main>
     </DynamicLayout>
   );
 };

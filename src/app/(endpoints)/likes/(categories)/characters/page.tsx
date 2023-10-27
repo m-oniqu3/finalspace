@@ -1,4 +1,5 @@
 import EmptyLikes from "@/components/EmptyLikes";
+import ErrorMessage from "@/components/ErrorMessage";
 import Card from "@/components/ui/Card";
 import Grid from "@/components/ui/Grid";
 import { Database } from "@/lib/database.types";
@@ -16,10 +17,9 @@ const CharacterLikes = async () => {
     .select()
     .order("created_at", { ascending: false });
 
-  const renderContent = (function () {
+  const renderCharacters = (function () {
     if (error) {
-      throw new Error("Something went wrong while trying to fetch your likes.");
-      // return <p>{error.message}</p>;
+      return <ErrorMessage message="Something went wrong while trying to fetch your likes." />;
     } else if (characters?.length === 0 || characters === null) {
       return <EmptyLikes category="characters" />;
     }
@@ -45,7 +45,7 @@ const CharacterLikes = async () => {
     );
   })();
 
-  return <Fragment>{renderContent}</Fragment>;
+  return <Fragment>{renderCharacters}</Fragment>;
 };
 
 export default CharacterLikes;

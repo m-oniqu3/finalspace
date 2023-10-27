@@ -5,6 +5,7 @@ import { Character, Location } from "@/types";
 import { fetchDataById } from "@/utils/fetchData";
 
 import Image from "next/image";
+import { Suspense } from "react";
 
 interface Props {
   params: { id: string };
@@ -57,7 +58,11 @@ const page = async (props: Props) => {
           </article>
         </section>
 
-        {residents.length > 0 && <CharacterList characters={residents} heading={`Residents of ${location.name}`} />}
+        {residents.length > 0 && (
+          <Suspense fallback={<p className="text-center"> Getting characters...</p>}>
+            <CharacterList characters={residents} heading={`Residents of ${location.name}`} />
+          </Suspense>
+        )}
       </section>
     </DynamicLayout>
   );
