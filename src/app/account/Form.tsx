@@ -63,9 +63,27 @@ const Form = () => {
 
     try {
       if (showLoginForm) {
-        signInUser(email, password, router);
+        signInUser(email, password)
+          .then(() => {
+            router.refresh();
+            router.push("/characters");
+            notify.welcome();
+          })
+          .catch((error) => {
+            console.log(error);
+            notify.error(error);
+          });
       } else {
-        createUser(email, password, router);
+        createUser(email, password)
+          .then(() => {
+            router.refresh();
+            router.push("/characters");
+            notify.verify();
+          })
+          .catch((error) => {
+            console.log(error);
+            notify.error(error);
+          });
       }
     } catch (error: any) {
       console.log(error);
@@ -83,10 +101,7 @@ const Form = () => {
 
           <p className=" text-indigo-900">
             {text} &nbsp;
-            <span
-              className="hover:underline cursor-pointer font-normal"
-              onClick={handleChangeForm}
-            >
+            <span className="hover:underline cursor-pointer font-normal" onClick={handleChangeForm}>
               {link}
             </span>
           </p>

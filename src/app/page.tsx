@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 const russo = Russo_One({ weight: "400", subsets: ["latin"] });
 

@@ -1,53 +1,33 @@
 import { Database } from "@/lib/database.types";
-import { notify } from "@/utils/notify";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+// import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 
 const supabase = createClientComponentClient<Database>();
 
-export const createUser = async (
-  email: string,
-  password: string,
-  router: AppRouterInstance
-) => {
+export const createUser = async (email: string, password: string) => {
   try {
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: { emailRedirectTo: `${location.origin}/auth/callback` },
     });
 
     if (error) throw new Error(error.message);
-
-    if (data) {
-      router.refresh();
-      notify.verify();
-    }
-  } catch (error) {
-    notify.error(error);
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
 
-export const signInUser = async (
-  email: string,
-  password: string,
-  router: AppRouterInstance
-) => {
+export const signInUser = async (email: string, password: string) => {
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) throw new Error(error.message);
-
-    if (data) {
-      router.refresh();
-      router.push("/characters");
-      notify.welcome();
-    }
   } catch (error: any) {
-    notify.error(error);
+    throw new Error(error);
   }
 };
 
