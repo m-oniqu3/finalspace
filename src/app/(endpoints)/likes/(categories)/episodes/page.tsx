@@ -7,6 +7,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Fragment } from "react";
 
+export const dynamic = "force-dynamic";
+
 const EpisodeLikes = async () => {
   const supabase = createServerComponentClient<Database>({ cookies });
 

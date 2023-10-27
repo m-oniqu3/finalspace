@@ -5,6 +5,13 @@ import { Russo_One } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Final Space Quotes",
+  description: "A list of popular quotes from the show Final Space.",
+};
+
 const russo = Russo_One({ weight: "400", subsets: ["latin"] });
 
 const Quotes = async () => {
@@ -39,9 +46,7 @@ const Quotes = async () => {
       <article key={key} className=" flex flex-col gap-6 mb-8 pb-8">
         <Link href={`/characters/${characterID}`}>
           <div className="bg-indigo-200 min-h-[300px] w-[280px] mx-auto p-6 rounded-xl text-indigo-900 border-indigo-300 relative z-0">
-            <p
-              className={`${russo.className} absolute top-5 text-lg font-bold italic opacity-70 tracking-[.4rem]`}
-            >
+            <p className={`${russo.className} absolute top-5 text-lg font-bold italic opacity-70 tracking-[.4rem]`}>
               C #{paddedCharacterID}
             </p>
             <Image
@@ -53,14 +58,8 @@ const Quotes = async () => {
             />
 
             <div className="flex flex-col gap-[0.4rem]">
-              <h2
-                className={`${russo.className} tracking-widest font-medium text-lg truncate`}
-              >
-                {key}
-              </h2>
-              <p className="font-normal truncate opacity-70">
-                Quotes: {data.length}
-              </p>
+              <h2 className={`${russo.className} tracking-widest font-medium text-lg truncate`}>{key}</h2>
+              <p className="font-normal truncate opacity-70">Quotes: {data.length}</p>
             </div>
           </div>
         </Link>

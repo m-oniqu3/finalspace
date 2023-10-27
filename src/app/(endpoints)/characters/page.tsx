@@ -11,6 +11,14 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
+
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Final Space Characters",
+  description: "A list of all the characters from the show Final Space.",
+};
+
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };
 }

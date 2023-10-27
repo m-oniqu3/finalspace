@@ -30,7 +30,7 @@ const MobileMenu = (props: Props) => {
       </nav>
 
       <ul className="grid place-items-center h-[20vh] center relative">
-        <NavLinks />
+        <NavLinks isMobile={true} />
       </ul>
       <div className="absolute bottom-10 left-0 right-0 mx-auto  w-fit ">
         <Button />

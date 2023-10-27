@@ -10,6 +10,15 @@ import { filterLocations } from "@/utils/filters";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Final Space Locations",
+  description: "A list of all the locations from the show Final Space.",
+};
+
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };
 }

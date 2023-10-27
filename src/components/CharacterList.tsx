@@ -6,6 +6,8 @@ import { Character } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   characters: Character[];
   heading: string;

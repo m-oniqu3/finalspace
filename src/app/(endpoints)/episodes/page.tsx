@@ -6,6 +6,13 @@ import { Episode } from "@/types";
 import { fetchData } from "@/utils/fetchData";
 import { filterEpisodes } from "@/utils/filters";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Final Space Episodes",
+  description: "A list of all the episodes from the show Final Space.",
+};
+
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };
 }
