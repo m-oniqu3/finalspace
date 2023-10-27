@@ -2,7 +2,7 @@
 
 import NavLinks from "@/components/NavLinks";
 import Search from "@/components/Search";
-import Logout from "@/components/navbar/Logout";
+import AccountModal from "@/components/navbar/AccountModal";
 import MobileMenu from "@/components/navbar/MobileMenu";
 import Container from "@/components/ui/Container";
 import { getCurrentSession } from "@/utils/auth";
@@ -43,6 +43,14 @@ const Navbar = (props: Props) => {
 
     getUser();
   }, []);
+
+  useEffect(() => {
+    if (showMenu) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [showMenu]);
 
   return (
     <Fragment>
@@ -93,7 +101,7 @@ const Navbar = (props: Props) => {
       </nav>
 
       {showMenu && <MobileMenu closeMenu={closeMenu} />}
-      {showDialog && <Logout closeDialog={closeDialog} user={user} />}
+      {showDialog && <AccountModal closeDialog={closeDialog} user={user} />}
     </Fragment>
   );
 };

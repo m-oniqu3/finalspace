@@ -15,21 +15,22 @@ interface Props {
   user: string;
 }
 
-const Logout = (props: Props) => {
+const AccountModal = (props: Props) => {
   const { closeDialog, user } = props;
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
-  const handleSignOut = async () => {
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      router.push("/");
-      router.refresh();
-    } catch (error: any) {
-      console.log(error);
-      notify.error(error.message);
-    }
+  const handleSignOut = () => {
+    supabase.auth
+      .signOut()
+      .then(() => {
+        router.push("/");
+        router.refresh();
+      })
+      .catch((error: any) => {
+        console.log(error);
+        notify.error(error.message);
+      });
   };
 
   useEffect(() => {
@@ -77,4 +78,4 @@ const Logout = (props: Props) => {
   );
 };
 
-export default Logout;
+export default AccountModal;

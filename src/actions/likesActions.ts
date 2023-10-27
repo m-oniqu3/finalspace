@@ -26,7 +26,7 @@ interface RemoveFromDatabaseProps {
 }
 
 export async function addToDatabase({ table, user, cardData }: AddToDatabaseProps) {
-  const id = parseInt(cardData.id.split("#")[1]).toString();
+  const id = parseInt(cardData.id.split("#")[1]);
 
   try {
     const { error } = await supabase.from(table).insert([

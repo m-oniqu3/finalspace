@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import NavLinks from "@/components/NavLinks";
 import Container from "@/components/ui/Container";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -24,16 +25,16 @@ const MobileMenu = (props: Props) => {
               className="md:grid md:col-start-1 md:col-span-1 sm:w-[80px]"
             />
           </Link>
-          <XMarkIcon
-            className="h-6 w-6 text-gray-500 cursor-pointer"
-            onClick={closeMenu}
-          />
+          <XMarkIcon className="h-6 w-6 text-gray-500 cursor-pointer" onClick={closeMenu} />
         </Container>
       </nav>
 
-      <ul className="grid place-items-center h-[20vh] center">
+      <ul className="grid place-items-center h-[20vh] center relative">
         <NavLinks />
       </ul>
+      <div className="absolute bottom-10 left-0 right-0 mx-auto  w-fit ">
+        <Button />
+      </div>
     </div>
   );
 };
