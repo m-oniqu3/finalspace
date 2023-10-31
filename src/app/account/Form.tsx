@@ -85,6 +85,14 @@ const Form = () => {
             notify.error(error);
           });
       }
+
+      setEmail("");
+      setPassword("");
+
+      setFormErrors({
+        email: { error: "", valid: false },
+        password: { error: "", valid: false },
+      });
     } catch (error: any) {
       console.log(error);
       notify.error(error);
